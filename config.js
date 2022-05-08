@@ -1,7 +1,5 @@
-const path = require("path");
-const variableExpansion = require("dotenv-expand");
-const myEnv = require("dotenv").config({
-    path: path.join(__dirname, "./.env"),
-});
+const dotenv = require("dotenv");
+const dotenvExpand = require("dotenv-expand");
+const myEnv = dotenv.config();
 
-variableExpansion(myEnv);
+dotenvExpand.expand(myEnv);

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { ROUTES_STATUS_OPTIONS, TRANSPORT_TYPES_OPTIONS } from "../constants";
+import routesFunctions from "./transport_routes.functions";
 const mongoosePaginate = require("mongoose-paginate-v2");
-const { ObjectId } = mongoose.Types;
 
 const routeSchema = new Schema({
   startCity: { type: String, require: true, maxlength: 15, minlength: 3 },
@@ -53,4 +53,13 @@ const routeSchema = new Schema({
   },
 });
 
-export const routeModel = mongoose.model("Route", routeSchema);
+routeSchema.statics.getAllRoutes = routesFunctions.getAllRoutes;
+routeSchema.statics.getRouteByStatus = routesFunctions.getRouteByStatus;
+routeSchema.statics.getRouteById = routesFunctions.getRouteById;
+routeSchema.statics.createRoute = routesFunctions.createRoute;
+routeSchema.statics.removeRoute = routesFunctions.removeRoute;
+routeSchema.statics.updateRoute = routesFunctions.updateRoute;
+
+routeSchema.plugin(mongoosePaginate);
+
+export const RouteModel = mongoose.model("Route", routeSchema);

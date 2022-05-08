@@ -17,7 +17,7 @@ async function getTransportById(transportId) {
   return this.findById(transportId);
 }
 
-async function createNewTransport(newTransportParams) {
+async function createTransport(newTransportParams) {
   return this.create(newTransportParams);
 }
 
@@ -29,7 +29,7 @@ async function removeTransport(transportId) {
   return this.findByIdAndDelete(transportId);
 }
 
-async function updateExistedTransport(transportId, newTransportParams) {
+async function updateTransport(transportId, newTransportParams) {
   if (!ObjectId.isValid(transportId)) {
     return null;
   }
@@ -45,7 +45,7 @@ export default {
   getAllTransports,
   getTransportsByStatus,
   getTransportById,
-  createNewTransport,
+  createTransport,
   removeTransport,
-  updateExistedTransport,
+  updateTransport,
 };

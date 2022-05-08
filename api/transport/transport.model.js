@@ -45,12 +45,10 @@ transportSchema.statics.getAllTransports = transportFunctions.getAllTransports;
 transportSchema.statics.getTransportsByStatus =
   transportFunctions.getTransportsByStatus;
 transportSchema.statics.getTransportById = transportFunctions.getTransportById;
-transportSchema.statics.createNewTransport =
-  transportFunctions.createNewTransport;
+transportSchema.statics.createTransport = transportFunctions.createTransport;
 transportSchema.statics.removeTransport = transportFunctions.removeTransport;
-transportSchema.statics.updateExistedTransport =
-  transportFunctions.updateExistedTransport;
+transportSchema.statics.updateTransport = transportFunctions.updateTransport;
 
 transportSchema.plugin(mongoosePaginate);
 
-export const transportModel = mongoose.model("Transport", transportSchema);
+export const TransportModel = mongoose.model("Transport", transportSchema);
