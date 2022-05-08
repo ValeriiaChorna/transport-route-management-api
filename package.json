@@ -1,0 +1,42 @@
+{
+  "name": "transport-route-management-api",
+  "version": "1.0.0",
+  "description": "Api(test) for transport route management",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ValeriiaChorna/transport-route-management-api.git"
+  },
+  "keywords": [
+    "transport",
+    "route",
+    "management",
+    "express.js",
+    "rest",
+    "crud"
+  ],
+  "author": "valeriia_chorna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ValeriiaChorna/transport-route-management-api/issues"
+  },
+  "homepage": "https://github.com/ValeriiaChorna/transport-route-management-api#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "dotenv-expand": "^8.0.3",
+    "esm": "^3.2.25",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.2",
+    "mongoose-paginate-v2": "^1.6.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2"
+  }
+}
