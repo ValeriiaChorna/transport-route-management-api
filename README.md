@@ -1,19 +1,19 @@
 # transport-route-management-api
 
 ## Transport
-GET `/transports` - get transport list
+**GET** `/transports` - get transport list
 
-GET `/transports?status=free` - get transport list with status='free'
+**GET** `/transports?status=free` - get transport list with status='free'
 
-POST `/transports` - create new transport
+**POST** `/transports` - create new transport
 
-GET `/transports/:transportId` - get transport with id='transportId'
+**GET** `/transports/:transportId` - get transport with id='transportId'
 
-PUT `/transports/:transportId` - update fields of transport with id='transportId'
+**PUT** `/transports/:transportId` - update fields of transport with id='transportId'
 
-DELETE `/transports/:transportId` - delete transport with id='transportId'
+**DELETE** `/transports/:transportId` - delete transport with id='transportId'
 
-###Model
+######Model
 
 ```
 {
@@ -49,19 +49,19 @@ DELETE `/transports/:transportId` - delete transport with id='transportId'
 
 ## Routes
 
-GET `/routes` - get routes list
+**GET** `/routes` - get routes list
 
-GET `/routes?status=pending` - get routes list with status='pending'
+**GET** `/routes?status=pending` - get routes list with status='pending'
 
-POST `/routes` - create new route
+**POST** `/routes` - create new route
 
-GET `/routes/:routeId` - get route with id='routeId'
+**GET** `/routes/:routeId` - get route with id='routeId'
 
-PUT `/routes/:routeId` - update fields of route with id='routeId'. To assign transport to the route: `req.body = { transportId: transportId}`
+**PUT** `/routes/:routeId` - update fields of route with id='routeId'. To assign transport to the route: `req.body = { transportId: transportId}`
 
-DELETE `/routes/:routeId` - delete route with id='routeId'
+**DELETE** `/routes/:routeId` - delete route with id='routeId'
 
-###Model
+######Model
 
 ```
 {
