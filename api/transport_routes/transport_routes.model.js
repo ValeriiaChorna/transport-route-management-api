@@ -12,6 +12,9 @@ const routeSchema = new Schema({
     require: true,
     validate: {
       validator: function (v) {
+        if (!v) {
+          return true;
+        }
         return (
           v && // check that there is a date object
           v.getTime() > Date.now() - 24 * 60 * 60 * 1000 &&
@@ -29,7 +32,7 @@ const routeSchema = new Schema({
     enum: Object.values(TRANSPORT_TYPES_OPTIONS),
   },
   revenueUSD: { type: Number, require: true, maxlength: 10000, minlength: 0 },
-  transportId: { type: Schema.Types.ObjectId, require: true },
+  transportId: { type: Schema.Types.ObjectId, default: null, require: true },
   status: {
     type: String,
     require: true,
@@ -38,9 +41,12 @@ const routeSchema = new Schema({
   },
   executionDate: {
     type: Date,
-    require: true,
+    default: null,
     validate: {
       validator: function (v) {
+        if (!v) {
+          return true;
+        }
         return (
           v && // check that there is a date object
           v.getTime() > Date.now() - 24 * 60 * 60 * 1000 &&

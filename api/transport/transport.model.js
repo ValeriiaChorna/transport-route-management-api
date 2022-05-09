@@ -7,7 +7,13 @@ import transportFunctions from "./transport.functions";
 const mongoosePaginate = require("mongoose-paginate-v2");
 
 const transportSchema = new Schema({
-  licensePlate: { type: String, require: true, maxlength: 8, minlength: 4 },
+  licensePlate: {
+    type: String,
+    require: true,
+    unique: true,
+    maxlength: 8,
+    minlength: 4,
+  },
   transportModel: { type: String, require: true, maxlength: 20, minlength: 3 },
   transportType: {
     type: String,
@@ -18,8 +24,6 @@ const transportSchema = new Schema({
   purchaseDate: {
     type: Date,
     require: false,
-    // min: "1980-01-01",
-    // max: Date.now(),
     validate: {
       validator: function (v) {
         return (
@@ -45,6 +49,8 @@ transportSchema.statics.getAllTransports = transportFunctions.getAllTransports;
 transportSchema.statics.getTransportsByStatus =
   transportFunctions.getTransportsByStatus;
 transportSchema.statics.getTransportById = transportFunctions.getTransportById;
+transportSchema.statics.getTransportByLicensePlate =
+  transportFunctions.getTransportByLicensePlate;
 transportSchema.statics.createTransport = transportFunctions.createTransport;
 transportSchema.statics.removeTransport = transportFunctions.removeTransport;
 transportSchema.statics.updateTransport = transportFunctions.updateTransport;

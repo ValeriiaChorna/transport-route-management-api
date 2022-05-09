@@ -17,6 +17,14 @@ async function getTransportById(transportId) {
   return this.findById(transportId);
 }
 
+async function getTransportByLicensePlate(licensePlate) {
+  if (!licensePlate) {
+    return null;
+  }
+
+  return this.findOne({ licensePlate });
+}
+
 async function createTransport(newTransportParams) {
   return this.create(newTransportParams);
 }
@@ -45,6 +53,7 @@ export default {
   getAllTransports,
   getTransportsByStatus,
   getTransportById,
+  getTransportByLicensePlate,
   createTransport,
   removeTransport,
   updateTransport,

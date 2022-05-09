@@ -1,6 +1,12 @@
 import { RouteModel } from "./transport_routes.model";
-import { NotFound, DeletedSuccess } from "../helpers/errorConstructors";
+import {
+  NotFound,
+  DeletedSuccess,
+  ValidationError,
+} from "../helpers/errorConstructors";
 import createControllerProxy from "../helpers/createControllerProxy";
+import { TRANSPORT_STATUS_OPTIONS } from "../constants";
+import { TransportModel } from "../transport/transport.model";
 
 class RouteController {
   async getRouteByIdOrThrow(routeId) {
@@ -15,7 +21,6 @@ class RouteController {
     try {
       const { status, page, limit, sort } = req.query;
       let routesList;
-      //TODO check
       const options = limit && { page, limit, sort };
       const filter = {};
       if (status) {
@@ -43,7 +48,7 @@ class RouteController {
       const newRoute = await RouteModel.createRoute({
         ...req.body,
       });
-      return res.status(201).json({ ...newRoute });
+      return res.status(201).json({ ...newRoute._doc });
     } catch (err) {
       next(err);
     }
@@ -63,9 +68,32 @@ class RouteController {
   async updateRoute(req, res, next) {
     try {
       const { routeId } = req.params;
-      await this.getRouteByIdOrThrow(routeId);
+      const { transportId } = req.body;
+      const foundedRoute = await this.getRouteByIdOrThrow(routeId);
+      if (transportId) {
+        const foundedTransport = await TransportModel.getTransportById(
+          transportId
+        );
+        if (!foundedTransport) {
+          throw new ValidationError("Transport not found");
+        }
+        if (foundedTransport.status === TRANSPORT_STATUS_OPTIONS.BUSY) {
+          throw new ValidationError(`Transport ${transportId} is busy`);
+        }
+        if (
+          foundedTransport.transportType !== foundedRoute.neededTransportType
+        ) {
+          throw new ValidationError(
+            `Type of transport ${transportId} is ${foundedTransport.transportType}, neededTransportType is ${foundedRoute.neededTransportType}`
+          );
+        }
+        await TransportModel.updateTransport(transportId, {
+          status: TRANSPORT_STATUS_OPTIONS.BUSY,
+        });
+      }
       const updatedRoute = await RouteModel.updateRoute(routeId, req.body);
-      return res.status(200).json({ ...updatedRoute });
+
+      return res.status(200).json({ ...updatedRoute._doc });
     } catch (err) {
       next(err);
     }

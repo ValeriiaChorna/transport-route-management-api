@@ -1,5 +1,9 @@
 import { TransportModel } from "./transport.model";
-import { NotFound, DeletedSuccess } from "../helpers/errorConstructors";
+import {
+  NotFound,
+  DeletedSuccess,
+  ConflictError,
+} from "../helpers/errorConstructors";
 import createControllerProxy from "../helpers/createControllerProxy";
 
 class TransportController {
@@ -15,7 +19,6 @@ class TransportController {
     try {
       const { status, page, limit } = req.query;
       let transportsList;
-      //TODO check
       const options = limit && { page, limit, sort: { createdAt: -1 } };
       const filter = {};
       if (status) {
@@ -40,10 +43,20 @@ class TransportController {
 
   async createTransport(req, res, next) {
     try {
-      const newTransport = await TransportModel.createTransport({
-        ...req.body,
-      });
-      return res.status(201).json({ ...newTransport });
+      const { licensePlate } = req.body;
+      const newTransport = { ...req.body };
+      const existedTransport = await TransportModel.getTransportByLicensePlate(
+        licensePlate
+      );
+      if (existedTransport) {
+        throw new ConflictError(
+          `Transport with licensePlate=${licensePlate} already exist`
+        );
+      }
+      const createdTransport = await TransportModel.createTransport(
+        newTransport
+      );
+      return res.status(201).json({ ...createdTransport._doc });
     } catch (err) {
       next(err);
     }
@@ -68,7 +81,7 @@ class TransportController {
         transportId,
         req.body
       );
-      return res.status(200).json({ ...updatedTransport });
+      return res.status(200).json({ ...updatedTransport._doc });
     } catch (err) {
       next(err);
     }

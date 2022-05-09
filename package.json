@@ -31,6 +31,8 @@
     "dotenv-expand": "^8.0.3",
     "esm": "^3.2.25",
     "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "joi-objectid": "^4.0.2",
     "mongoose": "^6.3.2",
     "mongoose-paginate-v2": "^1.6.3",
     "morgan": "^1.10.0"
