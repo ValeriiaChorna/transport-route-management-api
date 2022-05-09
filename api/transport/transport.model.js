@@ -33,7 +33,7 @@ const transportSchema = new Schema({
         );
       },
       message:
-        "An event must be at least 1 day from now and not more than today.",
+        'An event must be at least "1980-01-01" and not more than today.',
     },
   },
   mileage: { type: Number, require: false, min: 0, max: 5000000 },
