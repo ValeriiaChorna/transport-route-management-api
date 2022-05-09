@@ -1,9 +1,9 @@
 # transport-route-management-api
 
 ## Transport
-**GET** `/transports` - get transport list
+**GET** `/transports?page=1&limit=10` - get transport list (page, limit - optional)
 
-**GET** `/transports?status=free` - get transport list with status='free'
+**GET** `/transports?status=free` - get transport list with status='free' (page, limit - optional)
 
 **POST** `/transports` - create new transport
 
@@ -13,7 +13,7 @@
 
 **DELETE** `/transports/:transportId` - delete transport with id='transportId'
 
-######Model
+**Model**
 
 ```
 {
@@ -49,9 +49,9 @@
 
 ## Routes
 
-**GET** `/routes` - get routes list
+**GET** `/routes?page=1&limit=10` - get routes list (page, limit - optional)
 
-**GET** `/routes?status=pending` - get routes list with status='pending'
+**GET** `/routes?status=pending` - get routes list with status='pending' (page, limit - optional)
 
 **POST** `/routes` - create new route
 
@@ -61,7 +61,7 @@
 
 **DELETE** `/routes/:routeId` - delete route with id='routeId'
 
-######Model
+**Model**
 
 ```
 {
